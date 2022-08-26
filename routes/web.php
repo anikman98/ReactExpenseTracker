@@ -17,27 +17,31 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// Route::get('/', function () {
-//     return Inertia::render('Welcome', [
-//         'canLogin' => Route::has('login'),
-//         'canRegister' => Route::has('register'),
-//         'laravelVersion' => Application::VERSION,
-//         'phpVersion' => PHP_VERSION,
-//     ]);
-// });
-
-// Route::get('/dashboard', function () {
-//     return Inertia::render('Dashboard');
-// })->middleware(['auth', 'verified'])->name('dashboard');
-
-// require __DIR__.'/auth.php';
 
 Route::get('/', function(){
-    return view('welcome');
+    return redirect()->route('expense.list');
 }); 
 
-Route::get('/expenses', [ExpenseController::class, 'index'])->name('expense.list');
+Route::group(['middleware' => ['auth'], 'prefix' => 'expense'], function() {
+
+    Route::get('/', [ExpenseController::class, 'index'])->name('expense.list');
+    Route::get('/add', [ExpenseController::class, 'add'])->name('expense.add');
+    Route::post('/store', [ExpenseController::class, 'store'])->name('expense.store');
+    Route::get('/show/{expense}', [ExpenseController::class, 'show'])->name('expense.show');
+    Route::post('/update', [ExpenseController::class, 'update'])->name('expense.update');
+    Route::get('/delete/{expense}', [ExpenseController::class, 'delete'])->name('expense.delete');
+
+
+});
+
 
 Auth::routes();
 
+
+
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+
+Route::get('check-inertia', function(){
+    return Inertia::render('Home');
+});
