@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\ServiceProvider;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Auth;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,5 +27,16 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Paginator::useBootstrap();
+
+        Inertia::share('app.name', config('app.name'));
+
+        Inertia::share('auth.user', function(){
+            if(Auth::user()){
+                return [
+                    'id' => Auth::user()->id,
+                    'name' => Auth::user()->name
+                ];
+            }
+        });
     }
 }

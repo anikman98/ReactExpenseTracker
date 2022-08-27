@@ -5326,10 +5326,10 @@ module.exports = {
 
 /***/ }),
 
-/***/ "./resources/js/Pages/Home.tsx":
-/*!*************************************!*\
-  !*** ./resources/js/Pages/Home.tsx ***!
-  \*************************************/
+/***/ "./resources/js/Pages/Home/index.tsx":
+/*!*******************************************!*\
+  !*** ./resources/js/Pages/Home/index.tsx ***!
+  \*******************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
@@ -5347,13 +5347,142 @@ Object.defineProperty(exports, "__esModule", ({
 
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
-var Home = function Home() {
-  var foo = "React";
-  var bar = "TypeScript";
-  return react_1["default"].createElement("h1", null, "Hello ", foo, " + ", bar);
+var layout_1 = __importDefault(__webpack_require__(/*! ../../components/common/layout */ "./resources/js/components/common/layout/index.tsx"));
+
+var Home = function Home(props) {
+  var expenses = props.expenses;
+  return react_1["default"].createElement(layout_1["default"], {
+    pageTitle: "My Expense"
+  }, react_1["default"].createElement("div", {
+    className: ""
+  }, react_1["default"].createElement("p", null, "Welcomes bros!"), react_1["default"].createElement("ul", null, expenses.map(function (values, index) {
+    return react_1["default"].createElement("li", {
+      key: index
+    }, values.description);
+  }))));
 };
 
 exports["default"] = Home;
+
+/***/ }),
+
+/***/ "./resources/js/components/common/layout/index.tsx":
+/*!*********************************************************!*\
+  !*** ./resources/js/components/common/layout/index.tsx ***!
+  \*********************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var menu_1 = __importDefault(__webpack_require__(/*! ../menu */ "./resources/js/components/common/menu/index.tsx"));
+
+var Layout = function Layout(props) {
+  var pageTitle = props.pageTitle,
+      children = props.children;
+  return react_1["default"].createElement("div", {
+    className: "layout"
+  }, react_1["default"].createElement(menu_1["default"], null), react_1["default"].createElement("div", {
+    className: "container"
+  }, react_1["default"].createElement("div", {
+    className: "row"
+  }, react_1["default"].createElement("div", {
+    className: "col-sm-12 mt-5"
+  }, react_1["default"].createElement("div", {
+    className: "card"
+  }, react_1["default"].createElement("div", {
+    className: "card-header"
+  }, pageTitle), react_1["default"].createElement("div", {
+    className: "card-body"
+  }, children))))));
+};
+
+exports["default"] = Layout;
+
+/***/ }),
+
+/***/ "./resources/js/components/common/menu/index.tsx":
+/*!*******************************************************!*\
+  !*** ./resources/js/components/common/menu/index.tsx ***!
+  \*******************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var inertia_react_1 = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+
+var Menu = function Menu() {
+  var SharedData = (0, inertia_react_1.usePage)();
+  console.log(SharedData);
+  return react_1["default"].createElement("nav", {
+    className: "navbar navbar-expand-md navbar-light bg-white shadow-sm"
+  }, react_1["default"].createElement("div", {
+    className: "container"
+  }, react_1["default"].createElement("a", {
+    className: "navbar-brand",
+    href: "#"
+  }, SharedData.props.app.name), react_1["default"].createElement("button", {
+    className: "navbar-toggler",
+    type: "button",
+    "data-bs-toggle": "collapse",
+    "data-bs-target": "#navbarSupportedContent",
+    "aria-controls": "navbarSupportedContent",
+    "aria-expanded": "false",
+    "aria-label": "toggle navigation"
+  }, react_1["default"].createElement("span", {
+    className: "navbar-toggler-icon"
+  })), react_1["default"].createElement("div", {
+    className: "collapse navbar-collapse",
+    id: "navbarSupportedContent"
+  }, react_1["default"].createElement("ul", {
+    className: "navbar-nav me-auto"
+  }), react_1["default"].createElement("ul", {
+    className: "navbar-nav ms-auto"
+  }, react_1["default"].createElement("li", {
+    className: "nav-item dropdown"
+  }, react_1["default"].createElement("a", {
+    id: "navbarDropdown",
+    className: "nav-link dropdown-toggle",
+    href: "#",
+    role: "button",
+    "data-bs-toggle": "dropdown",
+    "aria-haspopup": "true",
+    "aria-expanded": "false"
+  }, SharedData.props.auth.user.name), react_1["default"].createElement("div", {
+    className: "dropdown-menu dropdown-menu-end",
+    "aria-labelledby": "navbarDropdown"
+  }, react_1["default"].createElement("a", {
+    className: "dropdown-item",
+    href: "#"
+  }, "Logout")))))));
+};
+
+exports["default"] = Menu;
 
 /***/ }),
 
@@ -62093,8 +62222,10 @@ module.exports = function getSideChannel() {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
-	"./Home": "./resources/js/Pages/Home.tsx",
-	"./Home.tsx": "./resources/js/Pages/Home.tsx"
+	"./Home": "./resources/js/Pages/Home/index.tsx",
+	"./Home/": "./resources/js/Pages/Home/index.tsx",
+	"./Home/index": "./resources/js/Pages/Home/index.tsx",
+	"./Home/index.tsx": "./resources/js/Pages/Home/index.tsx"
 };
 
 

@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ExpenseController;
+use App\Models\Expense;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -43,5 +44,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 Route::get('check-inertia', function(){
-    return Inertia::render('Home');
+    $expenses = Expense::all();
+
+    return Inertia::render('Home', [
+        'expenses' => $expenses,
+    ]);
 });
