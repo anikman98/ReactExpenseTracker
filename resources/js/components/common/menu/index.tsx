@@ -1,16 +1,17 @@
 import React from "react";
 import { InertiaLink, usePage } from '@inertiajs/inertia-react'
+import route from "ziggy-js";
 
 
 const Menu: React.FC  = () => {
 
     const SharedData:any = usePage();
-    console.log(SharedData);
+    // console.log(SharedData);
 
         return(
             <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm">
                 <div className="container">
-                    <a className="navbar-brand" href="#">
+                    <a className="navbar-brand" href={route('expense.list')}>
                         {SharedData.props.app.name}
                     </a>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="toggle navigation">

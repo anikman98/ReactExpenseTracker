@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Expense;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
+use Inertia\Inertia;
 
 class ExpenseController extends Controller
 {
@@ -30,7 +31,10 @@ class ExpenseController extends Controller
     public function index(){
 
         $expenses = Expense::orderByDesc('id')->paginate(5);
-        return view('expenses.index')->with('expenses', $expenses);
+        // return view('expenses.index')->with('expenses', $expenses);
+        return Inertia::render('Expense/index', [
+            'expenses' => $expenses,
+        ]);
     }
 
     public function add(){
