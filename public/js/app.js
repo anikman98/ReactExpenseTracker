@@ -6766,6 +6766,7 @@ var Pagination = function Pagination(_ref) {
     className: "pagination"
   }, links.map(function (link, index) {
     return react_1["default"].createElement("li", {
+      key: index,
       className: "page-item ".concat(link.url === null && "disabled", " ").concat(link.active && "active")
     }, react_1["default"].createElement(inertia_react_1.InertiaLink, {
       className: 'page-link',

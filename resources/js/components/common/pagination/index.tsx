@@ -14,7 +14,7 @@ const Pagination: React.FC<Props> = ({links}) => {
             {
                 links.map((link: PageLink, index: number) => {
                     return (
-                        <li className={`page-item ${link.url === null && "disabled"} ${link.active && "active"}`}>
+                        <li key={index} className={`page-item ${link.url === null && "disabled"} ${link.active && "active"}`}>
                             <InertiaLink className='page-link' href={link.url || "#"}>
                                     {link.label === "&laquo; Previous" ? "Previous" : (link.label === "Next &raquo;" ? "Next" : link.label)}
                             </InertiaLink>
