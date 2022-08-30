@@ -5,6 +5,7 @@ import route from 'Ziggy-js';
 import PaginatedData from '../../interface/PaginateData';
 import { InertiaLink } from '@inertiajs/inertia-react'
 import Pagination from '../../components/common/pagination';
+import { Inertia } from '@inertiajs/inertia';
 
 
 
@@ -14,9 +15,17 @@ interface Props{
 
 const ExpenseListPage: React.FC<Props> = ({expenses}) => {
 
+    
+    const handleDelete = (expense: Expense) =>{
+        const res = confirm("Want to delete?");
+        // console.log(res);
+        if(res){
+            Inertia.get(route('expense.delete', { expense: expense }));
+        }
+    }
 
   return (
-    <Layout pageTitle="My Expense List" >
+    <Layout pageTitle="My Expense List">
         {   expenses.data.length > 0 ?
         (
             <>
@@ -44,7 +53,8 @@ const ExpenseListPage: React.FC<Props> = ({expenses}) => {
                                 <td>{expense.amount}</td>
                                 <td>
                                     <InertiaLink href={route('expense.show', {id: expense.id})}> <button className="btn btn-primary btn-sm">Show</button></InertiaLink>
-                                    <InertiaLink href={route('expense.delete', {id: expense.id})}> <button className="btn btn-danger btn-sm">Delete</button></InertiaLink>
+                                    {/* <InertiaLink href={route('expense.delete', {id: expense.id})}> <button className="btn btn-danger btn-sm">Delete</button></InertiaLink> */}
+                                    <button className='btn btn-danger btn-sm ml-3' onClick={() => handleDelete(expense)}>Delete</button>
                                 </td>
                             </tr>
                         )

@@ -33,7 +33,7 @@ const ExpenseForm: React.FC<Props> = ({expense, expensecategories, paymentMethod
 
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
-        console.log(state);
+        // console.log(state);
         Inertia.post(submitUrl, state);
     }
 

@@ -6296,8 +6296,21 @@ var inertia_react_1 = __webpack_require__(/*! @inertiajs/inertia-react */ "./nod
 
 var pagination_1 = __importDefault(__webpack_require__(/*! ../../components/common/pagination */ "./resources/js/components/common/pagination/index.tsx"));
 
+var inertia_1 = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+
 var ExpenseListPage = function ExpenseListPage(_ref) {
   var expenses = _ref.expenses;
+
+  var handleDelete = function handleDelete(expense) {
+    var res = confirm("Want to delete?"); // console.log(res);
+
+    if (res) {
+      inertia_1.Inertia.get((0, Ziggy_js_1["default"])('expense.delete', {
+        expense: expense
+      }));
+    }
+  };
+
   return react_1["default"].createElement(layout_1["default"], {
     pageTitle: "My Expense List"
   }, expenses.data.length > 0 ? react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("table", {
@@ -6311,13 +6324,12 @@ var ExpenseListPage = function ExpenseListPage(_ref) {
       })
     }, " ", react_1["default"].createElement("button", {
       className: "btn btn-primary btn-sm"
-    }, "Show")), react_1["default"].createElement(inertia_react_1.InertiaLink, {
-      href: (0, Ziggy_js_1["default"])('expense.delete', {
-        id: expense.id
-      })
-    }, " ", react_1["default"].createElement("button", {
-      className: "btn btn-danger btn-sm"
-    }, "Delete"))));
+    }, "Show")), react_1["default"].createElement("button", {
+      className: 'btn btn-danger btn-sm ml-3',
+      onClick: function onClick() {
+        return handleDelete(expense);
+      }
+    }, "Delete")));
   }))), react_1["default"].createElement(pagination_1["default"], {
     links: expenses.links
   })) : "Nothing's added!");
@@ -6480,8 +6492,8 @@ var ExpenseForm = function ExpenseForm(_ref) {
   };
 
   var handleSubmit = function handleSubmit(event) {
-    event.preventDefault();
-    console.log(state);
+    event.preventDefault(); // console.log(state);
+
     inertia_1.Inertia.post(submitUrl, state);
   };
 
@@ -6747,7 +6759,7 @@ var inertia_react_1 = __webpack_require__(/*! @inertiajs/inertia-react */ "./nod
 
 var Pagination = function Pagination(_ref) {
   var links = _ref.links;
-  console.log(links);
+  // console.log(links);
   return react_1["default"].createElement("nav", {
     "aria-label": "Page navigation example"
   }, react_1["default"].createElement("ul", {

@@ -7,7 +7,7 @@ interface Props{
 }
 
 const Pagination: React.FC<Props> = ({links}) => {
-    console.log(links);
+    // console.log(links);
   return (
     <nav aria-label="Page navigation example">
         <ul className="pagination">
