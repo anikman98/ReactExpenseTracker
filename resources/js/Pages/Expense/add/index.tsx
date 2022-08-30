@@ -12,12 +12,12 @@ interface Props{
     paymentMethods: Array<any>;
 }
 
-const ExpenseViewPage: React.FC<Props> = ({expense, expenses, paymentMethods}) => {
+const ExpenseAddPage: React.FC<Props> = ({expense, expenses, paymentMethods}) => {
     return (
-        <Layout pageTitle='Expense details'>
-            <ExpenseForm  expense={expense} expensecategories={expenses} paymentMethods={paymentMethods} submitUrl={route('expense.update')} />
+        <Layout pageTitle='Add Expense'>
+            <ExpenseForm  expense={expense} expensecategories={expenses} paymentMethods={paymentMethods} submitUrl={route('expense.store')}/>
         </Layout>
     )
 }
 
-export default ExpenseViewPage;
+export default ExpenseAddPage;

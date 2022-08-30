@@ -39,13 +39,14 @@ class ExpenseController extends Controller
 
     public function add(){
 
-        // return Inertia::render('Expense/view/index', [
-        //     'expense' => $expe
-        // ]);
-        return view('expenses.add')
-            ->with('expense', new Expense)
-            ->with('expense_category', $this->expenseCategory)
-            ->with('payment_methods', $this->paymentMethods);
+        return Inertia::render('Expense/add/index', [
+            'expense' => new Expense,
+            'expenses' => $this->expenseCategory,
+            'paymentMethods' => $this->paymentMethods
+        ]);
+            // ->with('expense', new Expense)
+            // ->with('expense_category', $this->expenseCategory)
+            // ->with('payment_methods', $this->paymentMethods);
     }
 
     public function store(Request $request){
@@ -56,7 +57,7 @@ class ExpenseController extends Controller
         
         Expense::create($validatedData);
 
-        return redirect()->route('expense.list');
+        return redirect()->back()->with('success', 'New Expense added!');
 
     }
 
@@ -83,7 +84,7 @@ class ExpenseController extends Controller
 
         $action = Expense::where('id', $expenseId)->update($validatedData);
 
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Expense #'.$expenseId.' Updated!');
 
         if($action == 1){
             return view('expenses.edit')

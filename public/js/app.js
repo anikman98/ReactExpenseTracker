@@ -6222,6 +6222,51 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Expense/add/index.tsx":
+/*!**************************************************!*\
+  !*** ./resources/js/Pages/Expense/add/index.tsx ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var layout_1 = __importDefault(__webpack_require__(/*! ../../../components/common/layout */ "./resources/js/components/common/layout/index.tsx"));
+
+var expenseForm_1 = __importDefault(__webpack_require__(/*! ../../..//components/common/forms/expenseForm */ "./resources/js/components/common/forms/expenseForm/index.tsx"));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var ziggy_js_1 = __importDefault(__webpack_require__(/*! ziggy-js */ "./node_modules/ziggy-js/dist/index.js"));
+
+var ExpenseAddPage = function ExpenseAddPage(_ref) {
+  var expense = _ref.expense,
+      expenses = _ref.expenses,
+      paymentMethods = _ref.paymentMethods;
+  return react_1["default"].createElement(layout_1["default"], {
+    pageTitle: 'Add Expense'
+  }, react_1["default"].createElement(expenseForm_1["default"], {
+    expense: expense,
+    expensecategories: expenses,
+    paymentMethods: paymentMethods,
+    submitUrl: (0, ziggy_js_1["default"])('expense.store')
+  }));
+};
+
+exports["default"] = ExpenseAddPage;
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Expense/index.tsx":
 /*!**********************************************!*\
   !*** ./resources/js/Pages/Expense/index.tsx ***!
@@ -6307,6 +6352,8 @@ var expenseForm_1 = __importDefault(__webpack_require__(/*! ../../..//components
 
 var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
 
+var ziggy_js_1 = __importDefault(__webpack_require__(/*! ziggy-js */ "./node_modules/ziggy-js/dist/index.js"));
+
 var ExpenseViewPage = function ExpenseViewPage(_ref) {
   var expense = _ref.expense,
       expenses = _ref.expenses,
@@ -6316,7 +6363,8 @@ var ExpenseViewPage = function ExpenseViewPage(_ref) {
   }, react_1["default"].createElement(expenseForm_1["default"], {
     expense: expense,
     expensecategories: expenses,
-    paymentMethods: paymentMethods
+    paymentMethods: paymentMethods,
+    submitUrl: (0, ziggy_js_1["default"])('expense.update')
   }));
 };
 
@@ -6408,7 +6456,8 @@ var ziggy_js_1 = __importDefault(__webpack_require__(/*! ziggy-js */ "./node_mod
 var ExpenseForm = function ExpenseForm(_ref) {
   var expense = _ref.expense,
       expensecategories = _ref.expensecategories,
-      paymentMethods = _ref.paymentMethods;
+      paymentMethods = _ref.paymentMethods,
+      submitUrl = _ref.submitUrl;
 
   var _a, _b, _c, _d, _e;
 
@@ -6417,10 +6466,10 @@ var ExpenseForm = function ExpenseForm(_ref) {
   var _react_1$default$useS = react_1["default"].useState({
     id: expense.id,
     date: expense.date,
-    description: expense.description,
-    amount: expense.amount,
-    category: expense.category,
-    payment_method: expense.payment_method
+    description: expense.description || "",
+    amount: expense.amount || 0.00,
+    category: expense.category || expensecategories[0],
+    payment_method: expense.payment_method || paymentMethods[0]
   }),
       _react_1$default$useS2 = _slicedToArray(_react_1$default$useS, 2),
       state = _react_1$default$useS2[0],
@@ -6433,13 +6482,13 @@ var ExpenseForm = function ExpenseForm(_ref) {
   var handleSubmit = function handleSubmit(event) {
     event.preventDefault();
     console.log(state);
-    inertia_1.Inertia.post((0, ziggy_js_1["default"])('expense.update'), state);
+    inertia_1.Inertia.post(submitUrl, state);
   };
 
   return react_1["default"].createElement("form", {
     onSubmit: handleSubmit
   }, react_1["default"].createElement("div", {
-    className: "form-group"
+    className: "mb-3"
   }, react_1["default"].createElement("label", {
     htmlFor: "date",
     className: "form-label"
@@ -6521,13 +6570,10 @@ var ExpenseForm = function ExpenseForm(_ref) {
     className: 'error-feedback'
   }, page.props.errors.payment_method)), react_1["default"].createElement("button", {
     type: "submit",
-    className: "btn btn-success mr-3"
-  }, "Submit"), react_1["default"].createElement(inertia_react_1.InertiaLink, {
+    className: "btn btn-success"
+  }, "Submit"), react_1["default"].createElement("span", null, "\xA0\xA0"), react_1["default"].createElement(inertia_react_1.InertiaLink, {
     href: (0, ziggy_js_1["default"])('expense.list')
-  }, react_1["default"].createElement("button", {
-    type: "submit",
-    className: "btn btn-primary float-right"
-  }, "Back")));
+  }, "Back"));
 };
 
 exports["default"] = ExpenseForm;
@@ -6557,22 +6603,42 @@ var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/r
 
 var menu_1 = __importDefault(__webpack_require__(/*! ../menu */ "./resources/js/components/common/menu/index.tsx"));
 
+var inertia_react_1 = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+
+var ziggy_js_1 = __importDefault(__webpack_require__(/*! ziggy-js */ "./node_modules/ziggy-js/dist/index.js"));
+
 var Layout = function Layout(props) {
   var pageTitle = props.pageTitle,
       children = props.children;
+  var page = (0, inertia_react_1.usePage)();
   return react_1["default"].createElement("div", {
     className: "layout"
   }, react_1["default"].createElement(menu_1["default"], null), react_1["default"].createElement("div", {
     className: "container"
-  }, react_1["default"].createElement("div", {
+  }, page.props.success ? react_1["default"].createElement("div", {
+    className: "alert alert-success mt-4",
+    role: "alert"
+  }, page.props.success) : react_1["default"].createElement("div", {
+    className: 'mt-3'
+  }), react_1["default"].createElement("div", {
     className: "row"
   }, react_1["default"].createElement("div", {
-    className: "col-sm-12 mt-5"
+    className: "col-sm-12 mt-2"
   }, react_1["default"].createElement("div", {
     className: "card"
   }, react_1["default"].createElement("div", {
     className: "card-header"
+  }, pageTitle == "My Expense List" ? react_1["default"].createElement("div", {
+    className: "row"
+  }, react_1["default"].createElement("div", {
+    className: "col-md"
   }, pageTitle), react_1["default"].createElement("div", {
+    className: "col-md"
+  }, react_1["default"].createElement(inertia_react_1.InertiaLink, {
+    href: (0, ziggy_js_1["default"])('expense.add')
+  }, " ", react_1["default"].createElement("button", {
+    className: 'btn btn-primary btn-sm float-end'
+  }, "Add New"), " "))) : pageTitle), react_1["default"].createElement("div", {
     className: "card-body"
   }, children))))));
 };
@@ -64334,6 +64400,10 @@ module.exports = {
 var map = {
 	"./Expense": "./resources/js/Pages/Expense/index.tsx",
 	"./Expense/": "./resources/js/Pages/Expense/index.tsx",
+	"./Expense/add": "./resources/js/Pages/Expense/add/index.tsx",
+	"./Expense/add/": "./resources/js/Pages/Expense/add/index.tsx",
+	"./Expense/add/index": "./resources/js/Pages/Expense/add/index.tsx",
+	"./Expense/add/index.tsx": "./resources/js/Pages/Expense/add/index.tsx",
 	"./Expense/index": "./resources/js/Pages/Expense/index.tsx",
 	"./Expense/index.tsx": "./resources/js/Pages/Expense/index.tsx",
 	"./Expense/view": "./resources/js/Pages/Expense/view/index.tsx",

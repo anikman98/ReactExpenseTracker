@@ -2,27 +2,27 @@ import Expense from '../../../../interface/Expense';
 import React from 'react';
 import { InertiaLink, usePage } from '@inertiajs/inertia-react';
 import { Inertia } from '@inertiajs/inertia'
-
-import route from 'ziggy-js';
+import route, { Router } from 'ziggy-js';
 
 interface Props{
     expense: Expense;
     expensecategories: Array<string>;
     paymentMethods: Array<string>;
+    submitUrl: string;
 }
 
 
-const ExpenseForm: React.FC<Props> = ({expense, expensecategories, paymentMethods}) => {
+const ExpenseForm: React.FC<Props> = ({expense, expensecategories, paymentMethods, submitUrl}) => {
 
     const page: any = usePage();
 
     const [state, setState] = React.useState({
         id: expense.id,
         date: expense.date,
-        description: expense.description,
-        amount: expense.amount,
-        category: expense.category,
-        payment_method: expense.payment_method
+        description: expense.description || "",
+        amount: expense.amount || 0.00,
+        category: expense.category || expensecategories[0],
+        payment_method: expense.payment_method || paymentMethods[0]
     });
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -34,12 +34,12 @@ const ExpenseForm: React.FC<Props> = ({expense, expensecategories, paymentMethod
     const handleSubmit = (event: React.FormEvent<HTMLFormElement>) =>{
         event.preventDefault();
         console.log(state);
-        Inertia.post(route('expense.update'), state);
+        Inertia.post(submitUrl, state);
     }
 
     return (
         <form onSubmit={handleSubmit}>
-            <div className="form-group">
+            <div className="mb-3">
                 <label htmlFor="date" className="form-label">Date</label>
                 <input type="date" className="form-control" id="date" name="date" value={state.date} onChange={handleChange}/>
                 {
@@ -90,8 +90,8 @@ const ExpenseForm: React.FC<Props> = ({expense, expensecategories, paymentMethod
                     page.props.errors ?.payment_method && ( <div className='error-feedback'>{page.props.errors.payment_method}</div>) 
                 }
             </div>
-            <button type="submit" className="btn btn-success mr-3">Submit</button>
-            <InertiaLink href={route('expense.list')}><button type="submit" className="btn btn-primary float-right">Back</button></InertiaLink>
+            <button type="submit" className="btn btn-success">Submit</button>
+            <span>&nbsp;&nbsp;</span><InertiaLink href={route('expense.list')}>Back</InertiaLink>
         </form>
     )
 }
