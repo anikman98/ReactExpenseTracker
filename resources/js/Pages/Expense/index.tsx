@@ -4,6 +4,7 @@ import Expense from '../../interface/Expense';
 import route from 'Ziggy-js';
 import PaginatedData from '../../interface/PaginateData';
 import { InertiaLink } from '@inertiajs/inertia-react'
+import Pagination from '../../components/common/pagination';
 
 
 
@@ -12,11 +13,14 @@ interface Props{
 }
 
 const ExpenseListPage: React.FC<Props> = ({expenses}) => {
-    // const {data} = expenses;
+
+
   return (
     <Layout pageTitle="My Expense List" >
         {   expenses.data.length > 0 ?
-        (<table className="table">
+        (
+            <>
+            <table className="table">
                 <thead>
                     <tr>
                         <th>#</th>
@@ -40,14 +44,17 @@ const ExpenseListPage: React.FC<Props> = ({expenses}) => {
                                 <td>{expense.amount}</td>
                                 <td>
                                     <InertiaLink href={route('expense.show', {id: expense.id})}> <button className="btn btn-primary btn-sm">Show</button></InertiaLink>
-                                    <a href={route('expense.delete', {id: expense.id})}> <button className="btn btn-danger btn-sm">Delete</button></a>
+                                    <InertiaLink href={route('expense.delete', {id: expense.id})}> <button className="btn btn-danger btn-sm">Delete</button></InertiaLink>
                                 </td>
                             </tr>
                         )
                     })}
                         
                 </tbody>
-            </table>) : "Nothing's added!" }
+            </table>
+            <Pagination links={expenses.links}/>
+            </>
+            ) : "Nothing's added!" }
     </Layout>
   )
 }

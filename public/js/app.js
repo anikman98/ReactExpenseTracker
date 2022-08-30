@@ -6249,12 +6249,13 @@ var Ziggy_js_1 = __importDefault(__webpack_require__(/*! Ziggy-js */ "./node_mod
 
 var inertia_react_1 = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
 
+var pagination_1 = __importDefault(__webpack_require__(/*! ../../components/common/pagination */ "./resources/js/components/common/pagination/index.tsx"));
+
 var ExpenseListPage = function ExpenseListPage(_ref) {
   var expenses = _ref.expenses;
-  // const {data} = expenses;
   return react_1["default"].createElement(layout_1["default"], {
     pageTitle: "My Expense List"
-  }, expenses.data.length > 0 ? react_1["default"].createElement("table", {
+  }, expenses.data.length > 0 ? react_1["default"].createElement(react_1["default"].Fragment, null, react_1["default"].createElement("table", {
     className: "table"
   }, react_1["default"].createElement("thead", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("th", null, "#"), react_1["default"].createElement("td", null, "Date"), react_1["default"].createElement("td", null, "Category"), react_1["default"].createElement("td", null, "Description"), react_1["default"].createElement("td", null, "Payment method"), react_1["default"].createElement("td", null, "Amount"), react_1["default"].createElement("td", null, "Actions"))), react_1["default"].createElement("tbody", null, expenses.data.map(function (expense, index) {
     return react_1["default"].createElement("tr", {
@@ -6265,17 +6266,61 @@ var ExpenseListPage = function ExpenseListPage(_ref) {
       })
     }, " ", react_1["default"].createElement("button", {
       className: "btn btn-primary btn-sm"
-    }, "Show")), react_1["default"].createElement("a", {
+    }, "Show")), react_1["default"].createElement(inertia_react_1.InertiaLink, {
       href: (0, Ziggy_js_1["default"])('expense.delete', {
         id: expense.id
       })
     }, " ", react_1["default"].createElement("button", {
       className: "btn btn-danger btn-sm"
     }, "Delete"))));
-  }))) : "Nothing's added!");
+  }))), react_1["default"].createElement(pagination_1["default"], {
+    links: expenses.links
+  })) : "Nothing's added!");
 };
 
 exports["default"] = ExpenseListPage;
+
+/***/ }),
+
+/***/ "./resources/js/Pages/Expense/view/index.tsx":
+/*!***************************************************!*\
+  !*** ./resources/js/Pages/Expense/view/index.tsx ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var layout_1 = __importDefault(__webpack_require__(/*! ../../../components/common/layout */ "./resources/js/components/common/layout/index.tsx"));
+
+var expenseForm_1 = __importDefault(__webpack_require__(/*! ../../..//components/common/forms/expenseForm */ "./resources/js/components/common/forms/expenseForm/index.tsx"));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var ExpenseViewPage = function ExpenseViewPage(_ref) {
+  var expense = _ref.expense,
+      expenses = _ref.expenses,
+      paymentMethods = _ref.paymentMethods;
+  return react_1["default"].createElement(layout_1["default"], {
+    pageTitle: 'Expense details'
+  }, react_1["default"].createElement(expenseForm_1["default"], {
+    expense: expense,
+    expensecategories: expenses,
+    paymentMethods: paymentMethods
+  }));
+};
+
+exports["default"] = ExpenseViewPage;
 
 /***/ }),
 
@@ -6316,6 +6361,176 @@ var Home = function Home(props) {
 };
 
 exports["default"] = Home;
+
+/***/ }),
+
+/***/ "./resources/js/components/common/forms/expenseForm/index.tsx":
+/*!********************************************************************!*\
+  !*** ./resources/js/components/common/forms/expenseForm/index.tsx ***!
+  \********************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var inertia_react_1 = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+
+var inertia_1 = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+
+var ziggy_js_1 = __importDefault(__webpack_require__(/*! ziggy-js */ "./node_modules/ziggy-js/dist/index.js"));
+
+var ExpenseForm = function ExpenseForm(_ref) {
+  var expense = _ref.expense,
+      expensecategories = _ref.expensecategories,
+      paymentMethods = _ref.paymentMethods;
+
+  var _a, _b, _c, _d, _e;
+
+  var page = (0, inertia_react_1.usePage)();
+
+  var _react_1$default$useS = react_1["default"].useState({
+    id: expense.id,
+    date: expense.date,
+    description: expense.description,
+    amount: expense.amount,
+    category: expense.category,
+    payment_method: expense.payment_method
+  }),
+      _react_1$default$useS2 = _slicedToArray(_react_1$default$useS, 2),
+      state = _react_1$default$useS2[0],
+      setState = _react_1$default$useS2[1];
+
+  var handleChange = function handleChange(event) {
+    setState(Object.assign(Object.assign({}, state), _defineProperty({}, event.currentTarget.name, event.currentTarget.value)));
+  };
+
+  var handleSubmit = function handleSubmit(event) {
+    event.preventDefault();
+    console.log(state);
+    inertia_1.Inertia.post((0, ziggy_js_1["default"])('expense.update'), state);
+  };
+
+  return react_1["default"].createElement("form", {
+    onSubmit: handleSubmit
+  }, react_1["default"].createElement("div", {
+    className: "form-group"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "date",
+    className: "form-label"
+  }, "Date"), react_1["default"].createElement("input", {
+    type: "date",
+    className: "form-control",
+    id: "date",
+    name: "date",
+    value: state.date,
+    onChange: handleChange
+  }), ((_a = page.props.errors) === null || _a === void 0 ? void 0 : _a.date) && react_1["default"].createElement("div", {
+    className: 'error-feedback'
+  }, page.props.errors.date)), react_1["default"].createElement("div", {
+    className: "mb-3"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "description",
+    className: "form-label"
+  }, "Description"), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control",
+    id: "description",
+    name: "description",
+    placeholder: "Descritption",
+    value: state.description,
+    onChange: handleChange
+  }), ((_b = page.props.errors) === null || _b === void 0 ? void 0 : _b.description) && react_1["default"].createElement("div", {
+    className: 'error-feedback'
+  }, page.props.errors.description)), react_1["default"].createElement("div", {
+    className: "mb-3"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "amount",
+    className: "form-label"
+  }, "Amount"), react_1["default"].createElement("input", {
+    type: "number",
+    step: ".10",
+    className: "form-control",
+    id: "amount",
+    name: "amount",
+    placeholder: "00.00",
+    value: state.amount,
+    onChange: handleChange
+  }), ((_c = page.props.errors) === null || _c === void 0 ? void 0 : _c.amount) && react_1["default"].createElement("div", {
+    className: 'error-feedback'
+  }, page.props.errors.amount)), react_1["default"].createElement("div", {
+    className: "mb-3"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "category",
+    className: "form-label"
+  }, "Category"), react_1["default"].createElement("select", {
+    name: "category",
+    id: "category",
+    className: "form-control",
+    value: state.category,
+    onChange: handleChange
+  }, expensecategories.map(function (category, index) {
+    return react_1["default"].createElement("option", {
+      value: category,
+      key: index
+    }, category);
+  })), ((_d = page.props.errors) === null || _d === void 0 ? void 0 : _d.category) && react_1["default"].createElement("div", {
+    className: 'error-feedback'
+  }, page.props.errors.category)), react_1["default"].createElement("div", {
+    className: "mb-3"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "payment_method",
+    className: "form-label"
+  }, "Payment Method"), react_1["default"].createElement("select", {
+    name: "payment_method",
+    id: "payment_method",
+    className: "form-control",
+    value: state.payment_method,
+    onChange: handleChange
+  }, paymentMethods.map(function (paymentMethod, index) {
+    return react_1["default"].createElement("option", {
+      value: paymentMethod,
+      key: index
+    }, paymentMethod);
+  })), ((_e = page.props.errors) === null || _e === void 0 ? void 0 : _e.payment_method) && react_1["default"].createElement("div", {
+    className: 'error-feedback'
+  }, page.props.errors.payment_method)), react_1["default"].createElement("button", {
+    type: "submit",
+    className: "btn btn-success mr-3"
+  }, "Submit"), react_1["default"].createElement(inertia_react_1.InertiaLink, {
+    href: (0, ziggy_js_1["default"])('expense.list')
+  }, react_1["default"].createElement("button", {
+    type: "submit",
+    className: "btn btn-primary float-right"
+  }, "Back")));
+};
+
+exports["default"] = ExpenseForm;
 
 /***/ }),
 
@@ -6438,6 +6653,50 @@ var Menu = function Menu() {
 };
 
 exports["default"] = Menu;
+
+/***/ }),
+
+/***/ "./resources/js/components/common/pagination/index.tsx":
+/*!*************************************************************!*\
+  !*** ./resources/js/components/common/pagination/index.tsx ***!
+  \*************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var inertia_react_1 = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+
+var Pagination = function Pagination(_ref) {
+  var links = _ref.links;
+  console.log(links);
+  return react_1["default"].createElement("nav", {
+    "aria-label": "Page navigation example"
+  }, react_1["default"].createElement("ul", {
+    className: "pagination"
+  }, links.map(function (link, index) {
+    return react_1["default"].createElement("li", {
+      className: "page-item ".concat(link.url === null && "disabled", " ").concat(link.active && "active")
+    }, react_1["default"].createElement(inertia_react_1.InertiaLink, {
+      className: 'page-link',
+      href: link.url || "#"
+    }, link.label === "&laquo; Previous" ? "Previous" : link.label === "Next &raquo;" ? "Next" : link.label));
+  })));
+};
+
+exports["default"] = Pagination;
 
 /***/ }),
 
@@ -64077,6 +64336,10 @@ var map = {
 	"./Expense/": "./resources/js/Pages/Expense/index.tsx",
 	"./Expense/index": "./resources/js/Pages/Expense/index.tsx",
 	"./Expense/index.tsx": "./resources/js/Pages/Expense/index.tsx",
+	"./Expense/view": "./resources/js/Pages/Expense/view/index.tsx",
+	"./Expense/view/": "./resources/js/Pages/Expense/view/index.tsx",
+	"./Expense/view/index": "./resources/js/Pages/Expense/view/index.tsx",
+	"./Expense/view/index.tsx": "./resources/js/Pages/Expense/view/index.tsx",
 	"./Home": "./resources/js/Pages/Home/index.tsx",
 	"./Home/": "./resources/js/Pages/Home/index.tsx",
 	"./Home/index": "./resources/js/Pages/Home/index.tsx",
