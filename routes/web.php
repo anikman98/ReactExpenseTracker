@@ -6,6 +6,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 /*
 |--------------------------------------------------------------------------
@@ -32,11 +33,23 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'expense'], function() {
     Route::post('/update', [ExpenseController::class, 'update'])->name('expense.update');
     Route::get('/delete/{expense}', [ExpenseController::class, 'delete'])->name('expense.delete');
 
+});
+
+Route::get('/login', [App\Http\Controllers\Auth\LoginController::class, 'index'])->name('login');
+Route::post('/login', [App\Http\Controllers\Auth\LoginController::class, 'store'])->name('login.store');
+Route::group(['middleware' => ['auth']], function(){
+
+    Route::get('/logout', function(){
+        Auth::logout();
+ 
+    return redirect()->route('expense.list');
+
+    })->name('logout');
 
 });
 
 
-Auth::routes();
+// Auth::routes();
 
 
 

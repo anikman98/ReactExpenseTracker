@@ -6,7 +6,6 @@ import route from "ziggy-js";
 const Menu: React.FC  = () => {
 
     const SharedData:any = usePage();
-    // console.log(SharedData);
 
         return(
             <nav className="navbar navbar-expand-md navbar-light bg-white shadow-sm">
@@ -24,16 +23,16 @@ const Menu: React.FC  = () => {
                         </ul>
                         <ul className="navbar-nav ms-auto">
                             <li className="nav-item dropdown">
-                                <a id="navbarDropdown" className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    {SharedData.props.auth.user.name}
-                                </a>
+                                {SharedData.props.auth.user ?<a id="navbarDropdown" className="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    { SharedData.props.auth.user.name }
+                                </a>: <InertiaLink href={route('login')} >Login</InertiaLink>}
 
-                                <div className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                    <a className="dropdown-item" href="#">
+                                {SharedData.props.auth.user ? <div className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                    <InertiaLink className="dropdown-item" href={'/logout'}>
                                         Logout
-                                    </a>
+                                    </InertiaLink>
 
-                                </div>
+                                </div> : "" }
                             </li>
                         </ul>
                     </div>

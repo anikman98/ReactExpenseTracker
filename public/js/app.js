@@ -6222,6 +6222,41 @@ module.exports = {
 
 /***/ }),
 
+/***/ "./resources/js/Pages/Auth/login.tsx":
+/*!*******************************************!*\
+  !*** ./resources/js/Pages/Auth/login.tsx ***!
+  \*******************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var react_1 = __importDefault(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var loginForm_1 = __importDefault(__webpack_require__(/*! ../../components/common/forms/loginForm */ "./resources/js/components/common/forms/loginForm/index.tsx"));
+
+var layout_1 = __importDefault(__webpack_require__(/*! ../../components/common/layout */ "./resources/js/components/common/layout/index.tsx"));
+
+var Login = function Login() {
+  return react_1["default"].createElement(layout_1["default"], {
+    pageTitle: 'Login'
+  }, react_1["default"].createElement(loginForm_1["default"], null));
+};
+
+exports["default"] = Login;
+
+/***/ }),
+
 /***/ "./resources/js/Pages/Expense/add/index.tsx":
 /*!**************************************************!*\
   !*** ./resources/js/Pages/Expense/add/index.tsx ***!
@@ -6318,7 +6353,7 @@ var ExpenseListPage = function ExpenseListPage(_ref) {
   }, react_1["default"].createElement("thead", null, react_1["default"].createElement("tr", null, react_1["default"].createElement("th", null, "#"), react_1["default"].createElement("td", null, "Date"), react_1["default"].createElement("td", null, "Category"), react_1["default"].createElement("td", null, "Description"), react_1["default"].createElement("td", null, "Payment method"), react_1["default"].createElement("td", null, "Amount"), react_1["default"].createElement("td", null, "Actions"))), react_1["default"].createElement("tbody", null, expenses.data.map(function (expense, index) {
     return react_1["default"].createElement("tr", {
       key: index
-    }, react_1["default"].createElement("td", null, expense.id), react_1["default"].createElement("td", null, expense.date), react_1["default"].createElement("td", null, expense.category), react_1["default"].createElement("td", null, expense.description), react_1["default"].createElement("td", null, expense.payment_method), react_1["default"].createElement("td", null, expense.amount), react_1["default"].createElement("td", null, react_1["default"].createElement(inertia_react_1.InertiaLink, {
+    }, react_1["default"].createElement("td", null, index + 1), react_1["default"].createElement("td", null, expense.date), react_1["default"].createElement("td", null, expense.category), react_1["default"].createElement("td", null, expense.description), react_1["default"].createElement("td", null, expense.payment_method), react_1["default"].createElement("td", null, expense.amount), react_1["default"].createElement("td", null, react_1["default"].createElement(inertia_react_1.InertiaLink, {
       href: (0, Ziggy_js_1["default"])('expense.show', {
         id: expense.id
       })
@@ -6592,6 +6627,155 @@ exports["default"] = ExpenseForm;
 
 /***/ }),
 
+/***/ "./resources/js/components/common/forms/loginForm/index.tsx":
+/*!******************************************************************!*\
+  !*** ./resources/js/components/common/forms/loginForm/index.tsx ***!
+  \******************************************************************/
+/***/ (function(__unused_webpack_module, exports, __webpack_require__) {
+
+"use strict";
+
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+var __createBinding = this && this.__createBinding || (Object.create ? function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  var desc = Object.getOwnPropertyDescriptor(m, k);
+
+  if (!desc || ("get" in desc ? !m.__esModule : desc.writable || desc.configurable)) {
+    desc = {
+      enumerable: true,
+      get: function get() {
+        return m[k];
+      }
+    };
+  }
+
+  Object.defineProperty(o, k2, desc);
+} : function (o, m, k, k2) {
+  if (k2 === undefined) k2 = k;
+  o[k2] = m[k];
+});
+
+var __setModuleDefault = this && this.__setModuleDefault || (Object.create ? function (o, v) {
+  Object.defineProperty(o, "default", {
+    enumerable: true,
+    value: v
+  });
+} : function (o, v) {
+  o["default"] = v;
+});
+
+var __importStar = this && this.__importStar || function (mod) {
+  if (mod && mod.__esModule) return mod;
+  var result = {};
+  if (mod != null) for (var k in mod) {
+    if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+  }
+
+  __setModuleDefault(result, mod);
+
+  return result;
+};
+
+var __importDefault = this && this.__importDefault || function (mod) {
+  return mod && mod.__esModule ? mod : {
+    "default": mod
+  };
+};
+
+Object.defineProperty(exports, "__esModule", ({
+  value: true
+}));
+
+var inertia_react_1 = __webpack_require__(/*! @inertiajs/inertia-react */ "./node_modules/@inertiajs/inertia-react/dist/index.js");
+
+var inertia_1 = __webpack_require__(/*! @inertiajs/inertia */ "./node_modules/@inertiajs/inertia/dist/index.js");
+
+var react_1 = __importStar(__webpack_require__(/*! react */ "./node_modules/react/index.js"));
+
+var ziggy_js_1 = __importDefault(__webpack_require__(/*! ziggy-js */ "./node_modules/ziggy-js/dist/index.js"));
+
+var LoginForm = function LoginForm() {
+  var _a, _b;
+
+  var page = (0, inertia_react_1.usePage)();
+
+  var _ref = (0, react_1.useState)({
+    email: '',
+    password: ''
+  }),
+      _ref2 = _slicedToArray(_ref, 2),
+      state = _ref2[0],
+      setState = _ref2[1];
+
+  var handleSubmit = function handleSubmit() {
+    // console.log(state);
+    inertia_1.Inertia.post((0, ziggy_js_1["default"])('login'), state);
+  };
+
+  var handleChange = function handleChange(event) {
+    setState(Object.assign(Object.assign({}, state), _defineProperty({}, event.currentTarget.name, event.currentTarget.value)));
+  };
+
+  return react_1["default"].createElement("form", {
+    onSubmit: handleSubmit
+  }, react_1["default"].createElement("div", {
+    className: "mb-3"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "email",
+    className: "form-label"
+  }, "Email"), react_1["default"].createElement("input", {
+    type: "text",
+    className: "form-control",
+    id: "email",
+    name: "email",
+    placeholder: "Email",
+    value: state.email,
+    onChange: handleChange
+  }), ((_a = page.props.errors) === null || _a === void 0 ? void 0 : _a.email) && react_1["default"].createElement("div", {
+    className: 'error-feedback'
+  }, page.props.errors.email)), react_1["default"].createElement("div", {
+    className: "mb-3"
+  }, react_1["default"].createElement("label", {
+    htmlFor: "password",
+    className: "form-label"
+  }, "Password"), react_1["default"].createElement("input", {
+    type: "password",
+    className: "form-control",
+    id: "password",
+    name: "password",
+    placeholder: "Password",
+    value: state.password,
+    onChange: handleChange
+  }), ((_b = page.props.errors) === null || _b === void 0 ? void 0 : _b.password) && react_1["default"].createElement("div", {
+    className: 'error-feedback'
+  }, page.props.errors.password)), react_1["default"].createElement("button", {
+    type: "submit",
+    className: "btn btn-success"
+  }, "Login"));
+};
+
+exports["default"] = LoginForm;
+
+function post(arg0, state) {
+  throw new Error('Function not implemented.');
+}
+
+/***/ }),
+
 /***/ "./resources/js/components/common/layout/index.tsx":
 /*!*********************************************************!*\
   !*** ./resources/js/components/common/layout/index.tsx ***!
@@ -6685,8 +6869,7 @@ var inertia_react_1 = __webpack_require__(/*! @inertiajs/inertia-react */ "./nod
 var ziggy_js_1 = __importDefault(__webpack_require__(/*! ziggy-js */ "./node_modules/ziggy-js/dist/index.js"));
 
 var Menu = function Menu() {
-  var SharedData = (0, inertia_react_1.usePage)(); // console.log(SharedData);
-
+  var SharedData = (0, inertia_react_1.usePage)();
   return react_1["default"].createElement("nav", {
     className: "navbar navbar-expand-md navbar-light bg-white shadow-sm"
   }, react_1["default"].createElement("div", {
@@ -6713,7 +6896,7 @@ var Menu = function Menu() {
     className: "navbar-nav ms-auto"
   }, react_1["default"].createElement("li", {
     className: "nav-item dropdown"
-  }, react_1["default"].createElement("a", {
+  }, SharedData.props.auth.user ? react_1["default"].createElement("a", {
     id: "navbarDropdown",
     className: "nav-link dropdown-toggle",
     href: "#",
@@ -6721,13 +6904,15 @@ var Menu = function Menu() {
     "data-bs-toggle": "dropdown",
     "aria-haspopup": "true",
     "aria-expanded": "false"
-  }, SharedData.props.auth.user.name), react_1["default"].createElement("div", {
+  }, SharedData.props.auth.user.name) : react_1["default"].createElement(inertia_react_1.InertiaLink, {
+    href: (0, ziggy_js_1["default"])('login')
+  }, "Login"), SharedData.props.auth.user ? react_1["default"].createElement("div", {
     className: "dropdown-menu dropdown-menu-end",
     "aria-labelledby": "navbarDropdown"
-  }, react_1["default"].createElement("a", {
+  }, react_1["default"].createElement(inertia_react_1.InertiaLink, {
     className: "dropdown-item",
-    href: "#"
-  }, "Logout")))))));
+    href: '/logout'
+  }, "Logout")) : "")))));
 };
 
 exports["default"] = Menu;
@@ -64411,6 +64596,8 @@ module.exports = {
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
 var map = {
+	"./Auth/login": "./resources/js/Pages/Auth/login.tsx",
+	"./Auth/login.tsx": "./resources/js/Pages/Auth/login.tsx",
 	"./Expense": "./resources/js/Pages/Expense/index.tsx",
 	"./Expense/": "./resources/js/Pages/Expense/index.tsx",
 	"./Expense/add": "./resources/js/Pages/Expense/add/index.tsx",

@@ -45,7 +45,7 @@ const ExpenseListPage: React.FC<Props> = ({expenses}) => {
                     {expenses.data.map((expense: Expense, index: any) => {
                         return (
                             <tr key={index}>
-                                <td>{expense.id}</td>
+                                <td>{index+1}</td>
                                 <td>{expense.date}</td>
                                 <td>{expense.category}</td>
                                 <td>{expense.description}</td>
